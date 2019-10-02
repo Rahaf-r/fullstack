@@ -1,53 +1,89 @@
-
 import React from 'react'
 import ReactDOM from 'react-dom'
-const course ="Half Half Stack application development"
+
+// const-definitions:
+
 const Header = (props) => {
+  console.log(props)
   return (
     <h1>
-    {props.courseName}
-      
+      {props.courseName}
     </h1>
   )
 }
+
+const Part = (props) => {
+  return (<div>
+    <p>
+      {props.parts[0].name}
+    </p>
+    <p>
+      {props.parts[1].name}
+    </p>
+    <p>
+      {props.parts[2].name}
+    </p>
+  </div>
+
+
+  )
+}
+
 const Content = (props) => {
-  return (
-    <p>
-      {props.part1Name}{props.exercises1Nuber}
-      {props.part2Name}{props.exercises2Nuber}
-      {props.part3Name}{props.exercises3Nuber}
-      
-    </p>
-
-  )
-}
-const Total = (props) => {
-  return (
-    <p>
-      {props.NumberOfExercises}{props.SumNumberofexercises}
-
-    </p>
-  )
-}
-const App = () => {
-  const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
-  const sum = 'number of exerciseses'
-  const SumNumberofexercises = 31
+  console.log('received props.parts: ' + props.parts);
 
   return (
     <div>
-      < Header courseName={course} />
+      <p>
+        {props.parts[0].name} {props.parts[0].exercises}
+      </p>
+      <p>
+        {props.parts[1].name} {props.parts[1].exercises}
+      </p>
+      <p>
+        {props.parts[2].name} {props.parts[2].exercises}
+      </p>
+    </div>
+  );
 
-      < Content part1Name={part1} />< Content exercises1Nuber={exercises1} />
-      < Content part2Name={part2} />< Content exercises2Nuber={exercises2} />
-      < Content part3Name={part3} />< Content exercises3Nuber={exercises3} />
-      < Total NumberOfExercises={sum} />< Total SumNumberofexercises={exercises1 + exercises2 + exercises3} />
+}
+// Part
+//Total
+const Total = (props) => {
+  return (
+    <p>Number of exercises {props.parts[0].exercises
+      + props.parts[1].exercises
+      + props.parts[2].exercises}</p>
+  );
+}
+
+
+// Here is the main component of the application
+const App = () => {
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7
+      },
+      {
+        name: 'State of a component',
+        exercises: 14
+      }
+    ]
+  };
+
+
+  return (
+    <div>
+      <Header courseName={course.name} />
+      <Content parts={course.parts} />
+      <Total parts={course.parts} />
 
     </div>
   )
